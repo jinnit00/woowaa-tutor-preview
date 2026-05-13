@@ -4,609 +4,1181 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex">
-<title>LAIBA · Taiwan's Most Selective Cultural Exchange Network</title>
-<meta name="description" content="A curated weekly cultural exchange network connecting Taiwan's most selective members with international gold-card holders, researchers, and top-school students.">
+<title>LAIBA · A Cultural Exchange for Curious Families</title>
+<meta name="description" content="A weekly cultural exchange where international gold-card holders, researchers, and top-school students meet curious Taiwanese families.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&family=Noto+Serif+TC:wght@400;500;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#0c1620;
-    --ink-soft:#3a4550;
-    --bg:#f6f1e7;
-    --paper:#fbf7ed;
-    --gold:#a07e3e;
-    --gold-soft:#c0a060;
-    --line:#d8cdb6;
-    --muted:#8a8479;
-    --serif:'Cormorant Garamond','Noto Serif TC',Georgia,serif;
-    --sans:'Inter','Noto Sans TC',-apple-system,sans-serif;
-    --serif-cn:'Noto Serif TC',serif;
+    --bg:#fff7eb;
+    --surface:#ffffff;
+    --ink:#1c1917;
+    --ink-soft:#44403c;
+    --muted:#a8a29e;
+    --line:#f0e8d5;
+    --line-soft:#f7efdc;
+    --primary:#ea580c;
+    --primary-hover:#c2410c;
+    --primary-soft:#fed7aa;
+    --accent:#fbbf24;
+    --accent-soft:#fef3c7;
+    --highlight:#fde68a;
+    --success:#84cc16;
+    --rose:#fb7185;
+    --sans:'Inter','Noto Sans TC','PingFang TC','Helvetica Neue',system-ui,sans-serif;
+    --radius:16px;
+    --radius-lg:24px;
+    --shadow:0 2px 12px rgba(28,25,23,.04);
+    --shadow-lg:0 10px 40px rgba(28,25,23,.08);
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
   body{
     background:var(--bg);color:var(--ink);
-    font-family:var(--sans);
-    font-size:16px;line-height:1.7;
-    -webkit-font-smoothing:antialiased;
-    text-rendering:optimizeLegibility;
+    font-family:var(--sans);font-size:16px;line-height:1.7;font-weight:400;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
   }
-  /* Mobile-portrait first: single column, max 480px */
-  .col{max-width:480px;margin:0 auto;padding:0 24px;background:var(--bg)}
-  @media(min-width:768px){
-    body{background:linear-gradient(to right,#ecdec4 0%,#ecdec4 calc(50% - 240px),var(--bg) calc(50% - 240px),var(--bg) calc(50% + 240px),#ecdec4 calc(50% + 240px),#ecdec4 100%)}
-    .col{box-shadow:0 0 60px rgba(12,22,32,.08)}
+  a{color:inherit}
+  button{font:inherit;cursor:pointer}
+
+  /* Hello bar */
+  .hello-bar{
+    background:linear-gradient(90deg,#fff1cc 0%,#fed7aa 100%);
+    padding:10px 16px;text-align:center;
+    font-size:13px;font-weight:500;color:var(--ink-soft);
+    overflow:hidden;white-space:nowrap;
   }
+  .hello-bar .hi{margin:0 12px;display:inline-block}
+  .hello-bar .sep{color:var(--primary);margin:0 2px}
 
   /* Nav */
   .nav{
     display:flex;align-items:center;justify-content:space-between;
-    padding:18px 24px;border-bottom:1px solid var(--line);
-    position:sticky;top:0;background:rgba(246,241,231,.95);
-    backdrop-filter:blur(8px);z-index:100;
+    padding:16px 20px;background:rgba(255,247,235,.92);
+    backdrop-filter:saturate(180%) blur(12px);
+    position:sticky;top:0;z-index:100;border-bottom:1px solid var(--line);
   }
-  .brand{font-family:var(--serif);font-weight:500;font-size:22px;letter-spacing:.06em}
-  .brand-zh{font-family:var(--serif-cn);font-size:11px;color:var(--muted);letter-spacing:.12em;display:block;margin-top:-2px}
-  .lang-switcher{
-    border:1px solid var(--line);background:transparent;color:var(--ink-soft);
-    font:inherit;font-size:12px;padding:6px 12px;border-radius:20px;
-    cursor:pointer;letter-spacing:.08em;
+  .brand{display:flex;align-items:baseline;gap:10px}
+  .brand .logo{font-weight:800;font-size:22px;letter-spacing:.04em;color:var(--ink)}
+  .brand .logo .spark{color:var(--primary);font-weight:400;margin-right:4px}
+  .brand .logo-zh{font-size:13px;font-weight:500;color:var(--ink-soft);letter-spacing:.1em}
+  .lang-wrap{position:relative}
+  .lang-btn{
+    background:var(--surface);border:1px solid var(--line);
+    padding:8px 14px;border-radius:999px;font-size:13px;font-weight:500;
+    color:var(--ink-soft);display:flex;align-items:center;gap:6px;
+    transition:all .15s ease;
   }
-  .lang-switcher:hover{background:#fff;border-color:var(--gold-soft)}
+  .lang-btn:hover{border-color:var(--primary-soft);color:var(--primary)}
+  .lang-btn .chev{font-size:10px;color:var(--muted)}
+  .lang-menu{
+    display:none;position:absolute;right:0;top:calc(100% + 8px);
+    background:var(--surface);border:1px solid var(--line);
+    border-radius:12px;padding:8px;min-width:200px;z-index:200;
+    box-shadow:var(--shadow-lg);
+  }
+  .lang-menu.open{display:block}
+  .lang-menu .row{
+    display:flex;align-items:center;justify-content:space-between;width:100%;
+    padding:10px 14px;background:transparent;border:0;border-radius:8px;
+    text-align:left;font-size:14px;color:var(--ink-soft);
+  }
+  .lang-menu .row:not([disabled]):hover{background:var(--accent-soft);color:var(--ink)}
+  .lang-menu .row[data-active="true"]{background:var(--primary-soft);color:var(--primary-hover);font-weight:600}
+  .lang-menu .row[disabled]{color:var(--muted);cursor:not-allowed}
+  .lang-menu .lab{display:flex;align-items:center;gap:10px}
+  .lang-menu .lab .flag{font-size:18px}
+  .lang-menu .soon{font-size:11px;color:var(--muted);font-style:italic}
 
-  /* Section */
-  section{padding:72px 24px;border-bottom:1px solid rgba(216,205,182,.5)}
-  section:last-of-type{border-bottom:none}
+  /* Sections */
+  section{padding:64px 20px}
+  .wrap{max-width:1120px;margin:0 auto}
   .kicker{
-    font-family:var(--serif);font-style:italic;
-    color:var(--gold);font-size:13px;letter-spacing:.32em;
-    text-transform:uppercase;margin-bottom:20px;
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:13px;font-weight:600;color:var(--primary);
+    letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px;
   }
-  h1{font-family:var(--serif);font-weight:500;font-size:38px;line-height:1.18;letter-spacing:.005em;margin-bottom:24px}
-  h2{font-family:var(--serif);font-weight:500;font-size:30px;line-height:1.25;margin-bottom:20px}
-  h3{font-family:var(--serif);font-weight:500;font-size:21px;line-height:1.3;margin-bottom:8px}
-  .lead{font-size:16.5px;color:var(--ink-soft);max-width:38ch;margin-bottom:24px;line-height:1.7}
-  .zh{font-family:var(--serif-cn);font-size:13px;color:var(--muted);line-height:1.75;margin-top:12px;padding-left:14px;border-left:2px solid var(--line)}
-  .zh-soft{color:var(--muted);font-family:var(--serif-cn);font-size:13px;letter-spacing:.05em}
-
-  /* Hello bar */
-  .hello-bar{background:var(--ink);color:var(--paper);padding:10px 24px;font-size:12px;letter-spacing:.06em;text-align:center;font-family:var(--serif);font-style:italic}
-  .hello-bar span{margin:0 8px;color:var(--gold-soft)}
-  .hello-bar .sep{color:#3a4550;font-style:normal}
+  .kicker::before{content:"";display:inline-block;width:24px;height:2px;background:var(--primary);border-radius:2px}
+  h1{font-size:clamp(32px,6.5vw,56px);line-height:1.1;font-weight:800;letter-spacing:-.02em;margin-bottom:20px}
+  h2{font-size:clamp(26px,4.5vw,40px);line-height:1.15;font-weight:700;letter-spacing:-.015em;margin-bottom:16px}
+  h3{font-size:clamp(18px,2.4vw,22px);line-height:1.3;font-weight:700;margin-bottom:8px}
+  .lead{font-size:clamp(16px,2vw,19px);color:var(--ink-soft);max-width:64ch;line-height:1.65;margin-bottom:24px}
+  .highlight{background:linear-gradient(transparent 60%,var(--highlight) 60%);padding:0 4px;border-radius:2px}
 
   /* Hero */
-  .hero{padding:64px 24px 56px;background:linear-gradient(180deg,var(--paper) 0%,var(--bg) 100%);text-align:left;border-bottom:1px solid var(--line)}
-  .hero .kicker::before{content:"";display:inline-block;width:24px;height:1px;background:var(--gold);vertical-align:middle;margin-right:10px}
-  .hero h1{font-size:36px}
-  .hero h1 em{font-style:italic;color:var(--gold)}
-  .hero .lead{font-size:16px;margin-bottom:32px;max-width:36ch}
-  .cta-row{display:flex;flex-direction:column;gap:12px;margin-top:8px}
-  .cta-primary{display:inline-block;padding:16px 28px;background:var(--ink);color:var(--paper);text-decoration:none;font-size:14px;letter-spacing:.12em;text-transform:uppercase;text-align:center;border:1px solid var(--ink);transition:all .2s ease}
-  .cta-primary:hover{background:var(--gold);border-color:var(--gold)}
-  .cta-secondary{display:inline-block;padding:14px 0;color:var(--ink-soft);font-size:13px;letter-spacing:.1em;text-decoration:none;text-align:center;border-bottom:1px solid var(--gold)}
-  .cta-secondary:hover{color:var(--gold)}
-  .hero-meta{display:flex;gap:18px;margin-top:36px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-  .hero-meta span::before{content:"·";margin-right:8px;color:var(--gold)}
-  .hero-meta span:first-child::before{display:none}
+  .hero{padding:48px 20px 72px;text-align:left}
+  .hero .wrap{max-width:880px}
+  .hero-meta{
+    display:flex;flex-wrap:wrap;gap:18px;margin-top:36px;
+    font-size:14px;color:var(--ink-soft);font-weight:500;
+  }
+  .hero-meta span{display:flex;align-items:center;gap:6px}
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
+  .cta-primary{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--primary);color:#fff;text-decoration:none;
+    padding:16px 28px;border-radius:999px;font-size:15px;font-weight:600;
+    transition:transform .12s ease,background .15s ease;
+    box-shadow:0 4px 14px rgba(234,88,12,.32);
+  }
+  .cta-primary:hover{background:var(--primary-hover);transform:translateY(-1px)}
+  .cta-primary .arr{font-weight:400}
+  .cta-secondary{
+    display:inline-flex;align-items:center;gap:8px;
+    color:var(--ink-soft);text-decoration:none;padding:14px 20px;
+    font-size:15px;font-weight:500;border-radius:999px;
+  }
+  .cta-secondary:hover{color:var(--primary);background:var(--accent-soft)}
 
   /* Members */
-  .members .lead-in{font-family:var(--serif);font-style:italic;font-size:18px;line-height:1.6;color:var(--ink);padding:24px;background:var(--paper);border-left:3px solid var(--gold);margin:24px 0 36px;max-width:none}
-  .archetypes{display:flex;flex-direction:column;gap:24px;margin-bottom:24px}
-  .archetype{background:var(--paper);border:1px solid var(--line);padding:28px 24px;position:relative}
-  .archetype .avatar{width:64px;height:64px;border-radius:50%;margin-bottom:16px;position:relative;background:radial-gradient(circle at 35% 35%,var(--gold-soft),var(--gold))}
-  .archetype:nth-child(1) .avatar{background:radial-gradient(circle at 35% 35%,#5a6e57,#2f3a2c)}
-  .archetype:nth-child(2) .avatar{background:radial-gradient(circle at 35% 35%,#7a9e8e,#3a5e4e)}
-  .archetype:nth-child(3) .avatar{background:radial-gradient(circle at 35% 35%,#c8965a,#8a5a2a)}
-  .archetype:nth-child(4) .avatar{background:radial-gradient(circle at 35% 35%,#a07e3e,#6a4e1e)}
-  .archetype:nth-child(5) .avatar{background:radial-gradient(circle at 35% 35%,#5a7e9e,#2a4e6e)}
-  .archetype:nth-child(6) .avatar{background:radial-gradient(circle at 35% 35%,#9e7e5a,#6e4e2a)}
-  .archetype .role-en{font-family:var(--serif);font-size:20px;font-weight:500;margin-bottom:2px}
-  .archetype .role-zh{font-family:var(--serif-cn);font-size:13px;color:var(--muted);letter-spacing:.05em;margin-bottom:18px}
-  .archetype blockquote{font-size:15.5px;line-height:1.7;color:var(--ink-soft);font-style:italic;quotes:'"' '"'}
-  .archetype blockquote::before{content:open-quote;color:var(--gold);font-size:24px;line-height:0;vertical-align:-8px;margin-right:4px;font-family:var(--serif)}
-  .archetype blockquote::after{content:close-quote;color:var(--gold);font-size:24px;line-height:0;vertical-align:-8px;margin-left:4px;font-family:var(--serif)}
-  .disclaimer{font-size:11px;color:var(--muted);letter-spacing:.05em;text-align:center;font-style:italic;padding:20px 0;border-top:1px dashed var(--line)}
+  .members{background:linear-gradient(180deg,var(--bg) 0%,#fff1d6 100%)}
+  .lead-in-quote{
+    background:var(--surface);border-radius:var(--radius-lg);
+    padding:24px 28px;margin:24px 0 36px;box-shadow:var(--shadow);
+    border-left:4px solid var(--accent);
+    font-size:17px;line-height:1.65;color:var(--ink);font-style:italic;
+    max-width:780px;
+  }
+  .lead-in-quote::before{content:"🌟 ";font-style:normal}
+  .archetypes{display:grid;grid-template-columns:1fr;gap:20px}
+  .archetype{
+    background:var(--surface);border-radius:var(--radius);
+    padding:24px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease;
+    display:flex;flex-direction:column;gap:12px;
+  }
+  .archetype:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+  .archetype-head{display:flex;align-items:center;gap:14px}
+  .archetype-emoji{
+    width:56px;height:56px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:28px;flex-shrink:0;background:var(--accent-soft);
+  }
+  .archetype:nth-child(1) .archetype-emoji{background:#dbeafe}
+  .archetype:nth-child(2) .archetype-emoji{background:#dcfce7}
+  .archetype:nth-child(3) .archetype-emoji{background:#fce7f3}
+  .archetype:nth-child(4) .archetype-emoji{background:#fef3c7}
+  .archetype:nth-child(5) .archetype-emoji{background:#e0e7ff}
+  .archetype:nth-child(6) .archetype-emoji{background:#fed7aa}
+  .archetype-role{font-size:17px;font-weight:700;line-height:1.3}
+  .archetype-quote{
+    color:var(--ink-soft);font-size:15px;line-height:1.65;
+    padding-left:14px;border-left:3px solid var(--accent);
+  }
+  .disclaimer{
+    text-align:center;font-size:12px;color:var(--muted);
+    margin-top:28px;font-style:italic;
+  }
 
   /* Why */
-  .why h2{max-width:18ch}
-  .why .pillar{margin-bottom:32px}
-  .why .pillar h3{font-size:18px;color:var(--gold)}
-  .why .pillar p{font-size:15px;color:var(--ink-soft);max-width:38ch}
+  .why .pillars{display:grid;grid-template-columns:1fr;gap:20px;margin-top:32px}
+  .pillar{
+    background:var(--surface);border-radius:var(--radius);padding:28px 24px;
+    box-shadow:var(--shadow);
+  }
+  .pillar-emoji{font-size:36px;margin-bottom:12px;display:block}
+  .pillar h3{margin-bottom:8px}
+  .pillar p{font-size:15px;color:var(--ink-soft);line-height:1.65}
 
   /* Vetting */
-  .vetting{background:var(--paper)}
-  .vetting-grid{display:grid;grid-template-columns:1fr;gap:24px;margin-top:28px}
-  .vetting-card{border:1px solid var(--line);padding:24px;background:var(--bg)}
-  .vetting-card h3{font-size:18px}
-  .vetting-card .label{font-family:var(--serif);font-style:italic;color:var(--gold);font-size:12px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px}
-  .vetting-card ul{list-style:none;margin-top:14px;font-size:14px;color:var(--ink-soft)}
-  .vetting-card li{padding:7px 0;border-bottom:1px solid rgba(216,205,182,.6);position:relative;padding-left:18px}
-  .vetting-card li::before{content:"✓";position:absolute;left:0;color:var(--gold);font-weight:500}
+  .vetting{background:#fffaef}
+  .vetting .cards{display:grid;grid-template-columns:1fr;gap:20px;margin-top:32px}
+  .vetting-card{
+    background:var(--surface);border-radius:var(--radius-lg);padding:28px 24px;
+    box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  .vetting-card::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:4px;
+    background:linear-gradient(90deg,var(--primary) 0%,var(--accent) 100%);
+  }
+  .vetting-card .label{
+    font-size:12px;font-weight:600;color:var(--primary);
+    letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;
+  }
+  .vetting-card .vlabel{font-size:30px;margin-bottom:6px;display:inline-block}
+  .vetting-card ul{list-style:none;margin-top:14px}
+  .vetting-card li{
+    padding:8px 0 8px 28px;font-size:14.5px;color:var(--ink-soft);
+    position:relative;border-bottom:1px solid var(--line-soft);
+  }
+  .vetting-card li::before{
+    content:"✓";position:absolute;left:6px;color:var(--success);font-weight:700;
+  }
   .vetting-card li:last-child{border-bottom:none}
-  .vetting-card .reject{color:#a04040;font-size:13px;font-style:italic;margin-top:14px;padding-top:12px;border-top:1px solid #e6c0c0}
-  .vetting-card .reject::before{content:"✕ ";font-style:normal}
+  .vetting-card li strong{color:var(--ink);font-weight:700}
+  .vetting-card .reject{
+    margin-top:14px;padding:12px 14px;border-radius:10px;
+    background:#fef2f2;color:#b91c1c;font-size:13.5px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .vetting-card .reject::before{content:"⛔";font-size:18px}
 
   /* Teachers */
-  .teachers .teacher-grid{display:flex;flex-direction:column;gap:18px;margin-top:24px}
-  .teacher{display:flex;align-items:center;gap:16px;padding:16px;background:var(--paper);border:1px solid var(--line)}
-  .teacher .flag{width:56px;height:40px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;background:var(--bg);border:1px solid var(--line)}
-  .teacher .info{flex:1}
-  .teacher .country{font-family:var(--serif);font-size:17px;font-weight:500;margin-bottom:2px}
-  .teacher .country-zh{font-family:var(--serif-cn);font-size:12px;color:var(--muted)}
-  .teacher .bio{font-size:13px;color:var(--ink-soft);line-height:1.55;margin-top:6px}
+  .teachers .teacher-grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:32px}
+  .teacher{
+    background:var(--surface);border-radius:var(--radius);padding:20px;
+    display:flex;align-items:flex-start;gap:14px;box-shadow:var(--shadow);
+    transition:transform .12s ease;
+  }
+  .teacher:hover{transform:translateY(-1px)}
+  .teacher .flag{
+    width:48px;height:48px;border-radius:12px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;font-size:28px;
+    background:var(--accent-soft);
+  }
+  .teacher .info{flex:1;min-width:0}
+  .teacher .country{font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .teacher .country-zh{font-size:12px;color:var(--muted);font-weight:500}
+  .teacher .bio{font-size:13.5px;color:var(--ink-soft);line-height:1.55;margin-top:6px}
 
   /* Session */
-  .session h2{max-width:18ch}
-  .session-steps{margin-top:28px}
-  .session-step{padding:18px 0;border-bottom:1px solid var(--line);display:flex;gap:20px;align-items:flex-start}
-  .session-step:last-child{border-bottom:none}
-  .session-step .num{font-family:var(--serif);font-style:italic;font-size:32px;color:var(--gold);line-height:1;flex-shrink:0;width:48px}
-  .session-step .body{flex:1}
-  .session-step h3{font-size:17px;margin-bottom:6px}
+  .session-steps{margin-top:32px;display:grid;gap:20px;grid-template-columns:1fr}
+  .session-step{
+    background:var(--surface);border-radius:var(--radius);padding:24px;
+    display:flex;align-items:flex-start;gap:18px;box-shadow:var(--shadow);
+  }
+  .session-step .num{
+    flex-shrink:0;width:44px;height:44px;border-radius:12px;
+    background:var(--primary);color:#fff;font-weight:700;font-size:18px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .session-step:nth-child(1) .num{background:#0ea5e9}
+  .session-step:nth-child(2) .num{background:var(--primary)}
+  .session-step:nth-child(3) .num{background:#84cc16}
+  .session-step:nth-child(4) .num{background:#a855f7}
+  .session-step h3{margin-bottom:4px}
   .session-step p{font-size:14px;color:var(--ink-soft);line-height:1.6}
 
   /* Compensation */
-  .compensation{background:var(--ink);color:var(--paper)}
-  .compensation .kicker{color:var(--gold-soft)}
-  .compensation h2{color:var(--paper)}
-  .compensation .lead{color:#c0bba8}
-  .compensation .zh{color:#8a8479;border-color:#3a4550}
+  .compensation{background:linear-gradient(135deg,#fffaef 0%,#fed7aa 100%)}
   .pay-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0 28px}
-  .pay-card{padding:20px;border:1px solid #3a4550;background:rgba(255,255,255,.03)}
-  .pay-card .label{font-size:11px;letter-spacing:.16em;color:var(--gold-soft);text-transform:uppercase;margin-bottom:8px}
-  .pay-card .value{font-family:var(--serif);font-size:26px;font-weight:500;color:var(--paper)}
-  .pay-card .unit{font-size:13px;color:#8a8479;letter-spacing:.05em;margin-top:6px}
-  .process-list{counter-reset:step;margin-top:24px}
-  .process-list li{list-style:none;counter-increment:step;padding:14px 0;border-bottom:1px solid #3a4550;font-size:14.5px;color:#c0bba8}
-  .process-list li::before{content:counter(step,decimal-leading-zero);font-family:var(--serif);font-style:italic;color:var(--gold-soft);margin-right:14px;letter-spacing:.05em}
+  .pay-card{
+    background:var(--surface);border-radius:var(--radius);padding:24px;
+    box-shadow:var(--shadow);
+  }
+  .pay-card .plabel{font-size:12px;font-weight:600;color:var(--primary);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+  .pay-card .pvalue{font-size:clamp(22px,3.4vw,32px);font-weight:800;color:var(--ink);line-height:1.2}
+  .pay-card .punit{font-size:13px;color:var(--ink-soft);margin-top:6px}
+  .process-list{counter-reset:step;margin-top:24px;background:var(--surface);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+  .process-list li{
+    list-style:none;counter-increment:step;
+    padding:14px 0;border-bottom:1px solid var(--line);
+    font-size:15px;color:var(--ink-soft);display:flex;gap:12px;
+  }
+  .process-list li:last-child{border-bottom:none}
+  .process-list li::before{
+    content:counter(step,decimal-leading-zero);
+    flex-shrink:0;width:34px;height:34px;border-radius:10px;
+    background:var(--accent-soft);color:var(--primary);font-weight:700;font-size:14px;
+    display:flex;align-items:center;justify-content:center;
+  }
 
   /* Parents */
-  .parents .lead{max-width:38ch}
-  .parents-cta{margin-top:28px;padding:28px;background:var(--paper);border:1px solid var(--line);text-align:center}
-  .parents-cta h3{margin-bottom:10px}
-  .parents-cta p{font-size:14px;color:var(--ink-soft);margin-bottom:18px}
+  .parents-card{
+    margin-top:24px;background:var(--surface);
+    border-radius:var(--radius-lg);padding:32px 24px;
+    box-shadow:var(--shadow);text-align:center;
+    max-width:680px;
+  }
+  .parents-card h3{margin-bottom:8px}
+  .parents-card p{font-size:14.5px;color:var(--ink-soft);margin-bottom:18px}
 
   /* FAQ */
-  .faq details{border-bottom:1px solid var(--line);padding:18px 0}
-  .faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;font-family:var(--serif);font-size:18px;font-weight:500}
+  .faq .faq-list{margin-top:28px;max-width:780px}
+  .faq details{
+    background:var(--surface);border-radius:var(--radius);
+    margin-bottom:12px;box-shadow:var(--shadow);overflow:hidden;
+  }
+  .faq summary{
+    padding:18px 22px;cursor:pointer;list-style:none;
+    display:flex;justify-content:space-between;align-items:center;gap:12px;
+    font-size:16px;font-weight:600;color:var(--ink);
+  }
   .faq summary::-webkit-details-marker{display:none}
-  .faq summary::after{content:"+";color:var(--gold);font-size:22px;transition:transform .2s ease}
+  .faq summary::after{
+    content:"+";color:var(--primary);font-size:22px;font-weight:400;
+    transition:transform .2s ease;flex-shrink:0;
+  }
   .faq details[open] summary::after{transform:rotate(45deg)}
-  .faq details p{margin-top:12px;color:var(--ink-soft);font-size:14.5px;line-height:1.65}
-  .faq details .zh{margin-top:10px;font-size:12.5px}
+  .faq details p{padding:0 22px 20px;color:var(--ink-soft);font-size:14.5px;line-height:1.65}
 
   /* Apply */
-  .apply{background:var(--ink);color:var(--paper);padding:64px 24px}
-  .apply .kicker{color:var(--gold-soft)}
-  .apply h2{color:var(--paper);margin-bottom:14px}
-  .apply .lead{color:#c0bba8;max-width:36ch;margin-bottom:32px}
-  .apply form{margin-top:20px}
-  .apply input,.apply select,.apply textarea{width:100%;background:transparent;border:0;border-bottom:1px solid #4a5560;color:var(--paper);font:inherit;padding:14px 0;margin-bottom:6px}
-  .apply input::placeholder,.apply textarea::placeholder{color:#6a7580}
-  .apply input:focus,.apply select:focus,.apply textarea:focus{outline:none;border-bottom-color:var(--gold)}
-  .apply label{font-size:11px;color:#8a9580;letter-spacing:.14em;text-transform:uppercase;display:block;margin-top:14px}
-  .apply select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--gold) 50%),linear-gradient(135deg,var(--gold) 50%,transparent 50%);background-position:calc(100% - 14px) center,calc(100% - 8px) center;background-size:6px 6px,6px 6px;background-repeat:no-repeat;cursor:pointer}
-  .apply select option{color:#000}
-  .apply textarea{resize:vertical;min-height:80px}
-  .apply .submit{margin-top:24px;width:100%;padding:18px;background:var(--gold);color:var(--ink);border:0;font:inherit;font-weight:500;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;font-size:13px}
-  .apply .submit:hover{background:var(--gold-soft)}
-  .apply .submit:disabled{background:#5a6e57;cursor:default}
-
-  /* Lang menu */
-  .lang-menu{position:absolute;right:24px;top:60px;background:var(--paper);border:1px solid var(--line);padding:8px 0;min-width:170px;display:none;z-index:200;box-shadow:0 8px 24px rgba(0,0,0,.1)}
-  .lang-menu.open{display:block}
-  .lang-menu button{display:block;width:100%;text-align:left;background:transparent;border:0;padding:8px 16px;cursor:pointer;font:inherit;font-size:13px;color:var(--ink-soft)}
-  .lang-menu button:hover{background:var(--bg);color:var(--gold)}
-  .lang-menu .flag-icon{margin-right:8px}
+  .apply{background:linear-gradient(135deg,#fed7aa 0%,#fbbf24 100%);color:var(--ink)}
+  .apply .kicker{color:var(--ink)}
+  .apply .kicker::before{background:var(--ink)}
+  .apply .lead{color:var(--ink-soft)}
+  .apply form{
+    margin-top:28px;background:var(--surface);border-radius:var(--radius-lg);
+    padding:28px 24px;box-shadow:var(--shadow-lg);max-width:580px;
+  }
+  .apply label{
+    display:block;font-size:12px;font-weight:600;color:var(--ink-soft);
+    letter-spacing:.06em;text-transform:uppercase;margin:14px 0 6px;
+  }
+  .apply input,.apply select,.apply textarea{
+    width:100%;padding:14px 16px;border:1.5px solid var(--line);
+    border-radius:12px;background:#fffbf2;font:inherit;font-size:15px;color:var(--ink);
+    transition:border-color .15s ease,background .15s ease;
+  }
+  .apply input:focus,.apply select:focus,.apply textarea:focus{
+    outline:none;border-color:var(--primary);background:#fff;
+  }
+  .apply input::placeholder,.apply textarea::placeholder{color:var(--muted)}
+  .apply select{cursor:pointer;appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--primary) 50%),linear-gradient(135deg,var(--primary) 50%,transparent 50%);background-position:calc(100% - 18px) center,calc(100% - 12px) center;background-size:6px 6px,6px 6px;background-repeat:no-repeat}
+  .apply textarea{resize:vertical;min-height:90px}
+  .apply .submit{
+    margin-top:24px;width:100%;padding:16px;border:0;border-radius:999px;
+    background:var(--primary);color:#fff;font-weight:700;font-size:15px;
+    box-shadow:0 4px 14px rgba(234,88,12,.32);
+    transition:background .15s ease,transform .12s ease;
+  }
+  .apply .submit:hover:not(:disabled){background:var(--primary-hover);transform:translateY(-1px)}
+  .apply .submit:disabled{background:#84cc16;cursor:default;box-shadow:none}
 
   /* Footer */
-  footer{padding:48px 24px 32px;background:var(--ink);color:#8a8479;font-size:13px;line-height:1.7;text-align:center}
-  footer .brand-foot{font-family:var(--serif);font-size:24px;color:var(--paper);letter-spacing:.08em;margin-bottom:4px}
-  footer .brand-foot-zh{font-family:var(--serif-cn);font-size:12px;color:#6a6258;letter-spacing:.14em;margin-bottom:18px}
-  footer .tagline{font-style:italic;color:#a09a8a;font-size:13px;margin-bottom:24px;max-width:36ch;margin-left:auto;margin-right:auto}
-  footer .legal{margin-top:20px;padding-top:20px;border-top:1px solid #3a4550;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
-  footer a{color:#c0a060;text-decoration:none;border-bottom:1px solid transparent}
-  footer a:hover{border-bottom-color:#c0a060}
+  footer{
+    background:var(--ink);color:#a8a29e;padding:48px 20px 28px;text-align:center;
+    font-size:13px;line-height:1.7;
+  }
+  footer .brand-foot{font-size:24px;font-weight:800;color:#fff;letter-spacing:.04em;margin-bottom:4px}
+  footer .brand-foot .spark{color:var(--primary);font-weight:400;margin-right:4px}
+  footer .brand-foot-zh{font-size:13px;color:#a8a29e;margin-bottom:18px}
+  footer .tagline{font-size:14px;color:#d6d3d1;max-width:38ch;margin:0 auto 18px}
+  footer .footer-meta{font-size:12px;color:#78716c;letter-spacing:.08em;margin-bottom:18px}
+  footer .legal{padding-top:18px;border-top:1px solid #292524;font-size:11px;color:#78716c;letter-spacing:.1em;text-transform:uppercase}
+  footer a{color:var(--accent);text-decoration:none}
+  footer a:hover{color:var(--primary-soft)}
 
-  /* Tight phones */
-  @media(max-width:380px){
-    section{padding:56px 20px}
-    .col{padding:0 20px}
-    .hero h1{font-size:30px}
-    h1{font-size:32px}
-    h2{font-size:26px}
+  /* ===== Responsive ===== */
+  @media(min-width:640px){
+    section{padding:80px 32px}
+    .hero{padding:64px 32px 88px}
+    .archetypes{grid-template-columns:1fr 1fr}
+    .vetting .cards{grid-template-columns:1fr 1fr}
+    .teachers .teacher-grid{grid-template-columns:1fr 1fr}
+    .session-steps{grid-template-columns:1fr 1fr}
+    .parents-card{margin-left:auto;margin-right:auto}
+  }
+  @media(min-width:1024px){
+    section{padding:96px 40px}
+    .hero{padding:88px 40px 104px}
+    .hero h1{max-width:18ch}
+    .hero .lead{font-size:20px;max-width:62ch}
+    .archetypes{grid-template-columns:repeat(3,1fr);gap:24px}
+    .why .pillars{grid-template-columns:repeat(3,1fr);gap:24px}
+    .teachers .teacher-grid{grid-template-columns:repeat(3,1fr);gap:20px}
+    .session-steps{grid-template-columns:repeat(2,1fr)}
+    .pay-grid{max-width:560px}
+    .parents-card{margin-left:0}
+  }
+  @media(min-width:1280px){
+    .hero h1{font-size:64px}
   }
 </style>
 </head>
 <body>
 
 <div class="hello-bar">
-  <span>Hello</span><span class="sep">·</span><span>哈囉</span><span class="sep">·</span><span>Bonjour</span><span class="sep">·</span><span>Hallo</span><span class="sep">·</span><span>こんにちは</span><span class="sep">·</span><span>Xin chào</span><span class="sep">·</span><span>Hola</span>
+  <span class="hi">👋 Hello</span><span class="sep">·</span>
+  <span class="hi">哈囉</span><span class="sep">·</span>
+  <span class="hi">Bonjour</span><span class="sep">·</span>
+  <span class="hi">Hallo</span><span class="sep">·</span>
+  <span class="hi">こんにちは</span><span class="sep">·</span>
+  <span class="hi">Xin chào</span><span class="sep">·</span>
+  <span class="hi">Hola</span>
 </div>
 
 <nav class="nav">
-  <div>
-    <span class="brand">LAIBA</span>
-    <span class="brand-zh">來吧文化</span>
+  <div class="brand">
+    <span class="logo"><span class="spark">✦</span>LAIBA</span>
+    <span class="logo-zh">來吧文化</span>
   </div>
-  <div style="position:relative">
-    <button class="lang-switcher" onclick="document.getElementById('langMenu').classList.toggle('open')">🌐 EN ▾</button>
-    <div class="lang-menu" id="langMenu">
-      <button><span class="flag-icon">🇺🇸</span>English (current)</button>
-      <button><span class="flag-icon">🇹🇼</span>繁體中文 · soon</button>
-      <button><span class="flag-icon">🇫🇷</span>Français · soon</button>
-      <button><span class="flag-icon">🇩🇪</span>Deutsch · soon</button>
-      <button><span class="flag-icon">🇯🇵</span>日本語 · soon</button>
-      <button><span class="flag-icon">🇻🇳</span>Tiếng Việt · soon</button>
-      <button><span class="flag-icon">🇪🇸</span>Español · soon</button>
-    </div>
+  <div class="lang-wrap">
+    <button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false">
+      <span id="langFlag">🇺🇸</span>
+      <span id="langCode">EN</span>
+      <span class="chev">▾</span>
+    </button>
+    <div class="lang-menu" id="langMenu" role="menu"></div>
   </div>
 </nav>
 
-<div class="col">
+<main>
 
+<!-- Hero -->
 <section class="hero">
-  <p class="kicker">By invitation · Taipei · Est. 2026</p>
-  <h1>Join Taiwan's Most <em>Selective</em> Cultural Exchange Network.</h1>
-  <p class="lead">For international gold-card holders, researchers, and top-school students who want to share their world — with the people shaping Taiwan's next decade.</p>
-  <p class="zh">為持有就業金卡的國際專業人士、來臺研究員、頂尖大學生而設──和正在打造臺灣下個十年的人，分享你的世界。</p>
-  <div class="cta-row">
-    <a href="#apply" class="cta-primary">Apply to Teach</a>
-    <a href="#members" class="cta-secondary">See Who You'll Meet ↓</a>
-  </div>
-  <div class="hero-meta">
-    <span>Weekly · 1-on-1</span>
-    <span>In-home</span>
-    <span>Cultural Exchange</span>
+  <div class="wrap">
+    <p class="kicker" data-i18n="hero.kicker"></p>
+    <h1>
+      <span data-i18n="hero.title_pre"></span><span class="highlight" data-i18n="hero.title_h"></span><span data-i18n="hero.title_post"></span>
+    </h1>
+    <p class="lead" data-i18n="hero.lead"></p>
+    <div class="cta-row">
+      <a href="#apply" class="cta-primary">
+        <span data-i18n="hero.cta_primary"></span>
+        <span class="arr">→</span>
+      </a>
+      <a href="#members" class="cta-secondary" data-i18n="hero.cta_secondary"></a>
+    </div>
+    <div class="hero-meta">
+      <span data-i18n="hero.meta_1"></span>
+      <span data-i18n="hero.meta_2"></span>
+      <span data-i18n="hero.meta_3"></span>
+    </div>
   </div>
 </section>
 
+<!-- Members -->
 <section id="members" class="members">
-  <p class="kicker">Meet Our Members</p>
-  <h2>Who You'll Meet.</h2>
-  <p class="lead">A glimpse of the people who join LAIBA — the families and individuals you'd be teaching, learning with, and building a real friendship with.</p>
+  <div class="wrap">
+    <p class="kicker" data-i18n="members.kicker"></p>
+    <h2 data-i18n="members.title"></h2>
+    <p class="lead" data-i18n="members.lead"></p>
+    <blockquote class="lead-in-quote" data-i18n="members.lead_in"></blockquote>
 
-  <blockquote class="lead-in">
-    "I learned about LAIBA through a Rotary Club referral. My child has used it a few times — it's been wonderful. Young platform, but the team is deeply attentive."
-    <span class="zh-soft" style="display:block;margin-top:10px">「我經過扶輪社社員推薦認識了這個平臺。小孩用了幾次覺得非常好──雖然創立不久，但團隊很用心。」</span>
-  </blockquote>
+    <div class="archetypes">
+      <article class="archetype">
+        <div class="archetype-head">
+          <div class="archetype-emoji">💼</div>
+          <h3 class="archetype-role" data-i18n="arch.1.role"></h3>
+        </div>
+        <p class="archetype-quote" data-i18n="arch.1.quote"></p>
+      </article>
+      <article class="archetype">
+        <div class="archetype-head">
+          <div class="archetype-emoji">📈</div>
+          <h3 class="archetype-role" data-i18n="arch.2.role"></h3>
+        </div>
+        <p class="archetype-quote" data-i18n="arch.2.quote"></p>
+      </article>
+      <article class="archetype">
+        <div class="archetype-head">
+          <div class="archetype-emoji">🎨</div>
+          <h3 class="archetype-role" data-i18n="arch.3.role"></h3>
+        </div>
+        <p class="archetype-quote" data-i18n="arch.3.quote"></p>
+      </article>
+      <article class="archetype">
+        <div class="archetype-head">
+          <div class="archetype-emoji">🚀</div>
+          <h3 class="archetype-role" data-i18n="arch.4.role"></h3>
+        </div>
+        <p class="archetype-quote" data-i18n="arch.4.quote"></p>
+      </article>
+      <article class="archetype">
+        <div class="archetype-head">
+          <div class="archetype-emoji">💻</div>
+          <h3 class="archetype-role" data-i18n="arch.5.role"></h3>
+        </div>
+        <p class="archetype-quote" data-i18n="arch.5.quote"></p>
+      </article>
+      <article class="archetype">
+        <div class="archetype-head">
+          <div class="archetype-emoji">📊</div>
+          <h3 class="archetype-role" data-i18n="arch.6.role"></h3>
+        </div>
+        <p class="archetype-quote" data-i18n="arch.6.quote"></p>
+      </article>
+    </div>
 
-  <div class="archetypes">
-
-    <article class="archetype">
-      <div class="avatar"></div>
-      <h3 class="role-en">Family Office Manager</h3>
-      <p class="role-zh">家族辦公室主管</p>
-      <blockquote>I manage my employer's assets across several countries. I personally need a deeper understanding of foreign cultures — and through LAIBA, I've learned far more than I expected.</blockquote>
-      <p class="zh">「我自己管理老闆幾個不同國家的資產。其實我自己本身很需要對不同國家的文化做更深入的認識，很幸運遇到這個平臺，也學會蠻多東西。」</p>
-    </article>
-
-    <article class="archetype">
-      <div class="avatar"></div>
-      <h3 class="role-en">Finance Firm Owner</h3>
-      <p class="role-zh">金融公司老闆</p>
-      <blockquote>Taiwan's markets have done well recently, and we have capital flowing offshore. Through simple conversation, I see different cultures — and the values they reveal. That's deeply inspiring, even from casual chats.</blockquote>
-      <p class="zh">「最近臺灣的金融市場表現非常好，所以我們有一些外溢的資金需要投向海外。透過很簡單的生活交流，讓我瞭解不同國家的不同文化，以及他們在這些文化中展現出來的價值；這對我非常有啟發，哪怕只是生活的閒聊。」</p>
-    </article>
-
-    <article class="archetype">
-      <div class="avatar"></div>
-      <h3 class="role-en">Artist</h3>
-      <p class="role-zh">藝術家</p>
-      <blockquote>Whether it's foreigners visiting Taiwan for an exhibition, or me showing work in Paris — having someone share their country's customs in advance lets me approach new cultures with ease. That cultural shock fuels my creative work.</blockquote>
-      <p class="zh">「不管是來臺灣看展覽的外國人，或是我到法國參展，都因為有這樣的小老師提前為我分享他們國家的風土人情，讓我可以很自在、放鬆地去接觸不同的文化。因為文化的衝擊，也讓我的創作更富有靈感與啟發。」</p>
-    </article>
-
-    <article class="archetype">
-      <div class="avatar"></div>
-      <h3 class="role-en">Entrepreneur</h3>
-      <p class="role-zh">企業主</p>
-      <blockquote>Life is busy — finally found a platform that gives my children a better worldview. Their tutor is an exchange student from Southeast Asia researching space science. My daughter, who'd never been into STEM, suddenly took initiative. So grateful.</blockquote>
-      <p class="zh">「生活很忙碌，終於找到了可以給小孩更好世界觀的平臺。這次的老師是來臺灣研究太空科學的東南亞交換生。原本不喜歡科學的女兒，一下子變得會主動學習起來，非常感謝這個平臺。」</p>
-    </article>
-
-    <article class="archetype">
-      <div class="avatar"></div>
-      <h3 class="role-en">Tech Executive</h3>
-      <p class="role-zh">科技新貴</p>
-      <blockquote>AI mania has been very good to Taiwan's tech sector — but day in, day out, I'm with machines. Through LAIBA, I've met wonderful teachers. Through language and culture exchange, they've shown me more of the world.</blockquote>
-      <p class="zh">「最近 AI 的瘋狂熱潮，讓臺灣所有的電子業賺得盆滿缽滿。但每天只能與設備、機器為伍，還好在這個平臺遇到了很好的老師。透過語言和文化的交流，他們讓我看到了世界更多的面貌。」</p>
-    </article>
-
-    <article class="archetype">
-      <div class="avatar"></div>
-      <h3 class="role-en">Stock Market Professional</h3>
-      <p class="role-zh">股票新貴</p>
-      <blockquote>I spend my days submerged in stocks and data. Through these conversations I see a different world — while also sharpening my language skills. Thank you, teachers.</blockquote>
-      <p class="zh">「每天泡在股票跟各種數據裡面，我透過跟老師的互動看到不一樣的世界，同時也提升了我語言的能力，謝謝老師。」</p>
-    </article>
-
+    <p class="disclaimer" data-i18n="members.disclaimer"></p>
   </div>
-
-  <p class="disclaimer">Representative member profiles, drawn from our community. · 代表性會員人設，取材自社群</p>
 </section>
 
+<!-- Why -->
 <section class="why">
-  <p class="kicker">Why This Exists</p>
-  <h2>This isn't tutoring. It's a weekly conversation between two worlds.</h2>
-  <p class="lead">LAIBA exists because Taiwan's most curious people want more than language drills — and the international community here has stories that don't fit on a CV.</p>
-  <p class="zh">LAIBA 不是補習。它是讓臺灣最求知若渴的人，與在臺國際社群每週一次的真實對話。</p>
-
-  <div class="pillar">
-    <h3>Conversation, not curriculum</h3>
-    <p>No textbooks. No grading. Just two interesting humans, once a week, in a Taiwanese home — talking about life, work, culture, ideas.</p>
-  </div>
-  <div class="pillar">
-    <h3>Selective on both sides</h3>
-    <p>We vet members the way we vet teachers. That means time spent here is time well spent — for both sides.</p>
-  </div>
-  <div class="pillar">
-    <h3>From language to art, to architecture, to ideas</h3>
-    <p>Language is our starting point. Future cohorts will expand into art, architecture, and other cultural disciplines.</p>
+  <div class="wrap">
+    <p class="kicker" data-i18n="why.kicker"></p>
+    <h2 data-i18n="why.title"></h2>
+    <p class="lead" data-i18n="why.lead"></p>
+    <div class="pillars">
+      <div class="pillar">
+        <span class="pillar-emoji">💬</span>
+        <h3 data-i18n="why.p1.title"></h3>
+        <p data-i18n="why.p1.body"></p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-emoji">🤝</span>
+        <h3 data-i18n="why.p2.title"></h3>
+        <p data-i18n="why.p2.body"></p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-emoji">🌱</span>
+        <h3 data-i18n="why.p3.title"></h3>
+        <p data-i18n="why.p3.body"></p>
+      </div>
+    </div>
   </div>
 </section>
 
+<!-- Vetting -->
 <section class="vetting">
-  <p class="kicker">Two-Sided Vetting</p>
-  <h2>Why both sides are worth your time.</h2>
-  <p class="lead">A network is only as good as who's in it. Here's how we keep the bar high — for teachers and members alike.</p>
+  <div class="wrap">
+    <p class="kicker" data-i18n="vet.kicker"></p>
+    <h2 data-i18n="vet.title"></h2>
+    <p class="lead" data-i18n="vet.lead"></p>
 
-  <div class="vetting-grid">
+    <div class="cards">
+      <div class="vetting-card">
+        <span class="vlabel">🎓</span>
+        <p class="label" data-i18n="vet.teacher.label"></p>
+        <h3 data-i18n="vet.teacher.title"></h3>
+        <ul>
+          <li>
+            <strong data-i18n="vet.teacher.l1_strong"></strong><span data-i18n="vet.teacher.l1_text"></span>
+          </li>
+          <li data-i18n="vet.teacher.l2"></li>
+          <li data-i18n="vet.teacher.l3"></li>
+          <li data-i18n="vet.teacher.l4"></li>
+        </ul>
+        <p class="reject"><span data-i18n="vet.teacher.reject"></span></p>
+      </div>
 
-    <div class="vetting-card">
-      <p class="label">Teacher Profile · 老師資格</p>
-      <h3>Who can teach</h3>
-      <ul>
-        <li>Holders of Taiwan's <strong>Gold Card</strong> (employment-based foreign professional)</li>
-        <li>Visiting researchers and academics in Taiwan</li>
-        <li>Exchange or graduate students from top international universities</li>
-        <li>Mother-tongue speakers with verified cultural depth</li>
-      </ul>
-      <p class="reject">Casual visitors and unverified backgrounds will not be accepted.</p>
-      <p class="zh">老師主要來自：在臺灣領有就業金卡的國際專業人士、來臺研究員、重點學校的大學生／交換生。<strong>嚴格排除外籍無業遊民。</strong></p>
+      <div class="vetting-card">
+        <span class="vlabel">👨‍👩‍👧</span>
+        <p class="label" data-i18n="vet.member.label"></p>
+        <h3 data-i18n="vet.member.title"></h3>
+        <ul>
+          <li>
+            <strong data-i18n="vet.member.l1_strong"></strong><span data-i18n="vet.member.l1_text"></span>
+          </li>
+          <li>
+            <strong data-i18n="vet.member.l2_strong"></strong><span data-i18n="vet.member.l2_text"></span>
+          </li>
+          <li data-i18n="vet.member.l3"></li>
+          <li data-i18n="vet.member.l4"></li>
+        </ul>
+      </div>
     </div>
-
-    <div class="vetting-card">
-      <p class="label">Member Vetting · 會員審核</p>
-      <h3>Who can join</h3>
-      <ul>
-        <li><strong>Under 18:</strong> we vet the parents — career, profession, household</li>
-        <li><strong>18 and over:</strong> we vet the individual — career trajectory, professional record</li>
-        <li>Open mind, willingness to engage across cultures</li>
-        <li>Active learning attitude — show up, ask, listen</li>
-      </ul>
-      <p class="zh">未滿 18 歲學員：審核家長。滿 18 歲以上青年：審核個人職涯與經歷。訴求：開放的心、接納不同文化、積極的學習態度。目的：打造良好的學習環境。</p>
-    </div>
-
   </div>
 </section>
 
+<!-- Teachers -->
 <section class="teachers">
-  <p class="kicker">Meet Our Teachers</p>
-  <h2>Voices from six worlds — and counting.</h2>
-  <p class="lead">A snapshot of the cultures already represented in our teacher pool. Each teacher brings a homeland, a profession, and a worldview.</p>
+  <div class="wrap">
+    <p class="kicker" data-i18n="teachers.kicker"></p>
+    <h2 data-i18n="teachers.title"></h2>
+    <p class="lead" data-i18n="teachers.lead"></p>
 
-  <div class="teacher-grid">
-    <div class="teacher">
-      <div class="flag">🇺🇸</div>
-      <div class="info">
-        <p class="country">United States</p>
-        <p class="country-zh">美國</p>
-        <p class="bio">Gold-card AI researchers, MBA exchange students from Ivy League, and tenured visiting professors from West Coast tech universities.</p>
+    <div class="teacher-grid">
+      <div class="teacher">
+        <div class="flag">🇺🇸</div>
+        <div class="info">
+          <p class="country"><span data-i18n="t.us.name"></span><span class="country-zh" data-i18n="t.us.zh"></span></p>
+          <p class="bio" data-i18n="t.us.bio"></p>
+        </div>
       </div>
-    </div>
-
-    <div class="teacher">
-      <div class="flag">🇫🇷</div>
-      <div class="info">
-        <p class="country">France</p>
-        <p class="country-zh">法國</p>
-        <p class="bio">Sorbonne-trained researchers in literature and philosophy, plus art and design students currently in Taiwan on cultural exchange programs.</p>
+      <div class="teacher">
+        <div class="flag">🇫🇷</div>
+        <div class="info">
+          <p class="country"><span data-i18n="t.fr.name"></span><span class="country-zh" data-i18n="t.fr.zh"></span></p>
+          <p class="bio" data-i18n="t.fr.bio"></p>
+        </div>
       </div>
-    </div>
-
-    <div class="teacher">
-      <div class="flag">🇩🇪</div>
-      <div class="info">
-        <p class="country">Germany</p>
-        <p class="country-zh">德國</p>
-        <p class="bio">Engineering and physics researchers at Academia Sinica; classical-music conservatory exchange students at NTNU.</p>
+      <div class="teacher">
+        <div class="flag">🇩🇪</div>
+        <div class="info">
+          <p class="country"><span data-i18n="t.de.name"></span><span class="country-zh" data-i18n="t.de.zh"></span></p>
+          <p class="bio" data-i18n="t.de.bio"></p>
+        </div>
       </div>
-    </div>
-
-    <div class="teacher">
-      <div class="flag">🇯🇵</div>
-      <div class="info">
-        <p class="country">Japan</p>
-        <p class="country-zh">日本</p>
-        <p class="bio">Visiting curators from Tokyo's museum circuit, gold-card holders in design, and graduate students from Waseda and Keio.</p>
+      <div class="teacher">
+        <div class="flag">🇯🇵</div>
+        <div class="info">
+          <p class="country"><span data-i18n="t.jp.name"></span><span class="country-zh" data-i18n="t.jp.zh"></span></p>
+          <p class="bio" data-i18n="t.jp.bio"></p>
+        </div>
       </div>
-    </div>
-
-    <div class="teacher">
-      <div class="flag">🇻🇳</div>
-      <div class="info">
-        <p class="country">Vietnam</p>
-        <p class="country-zh">越南</p>
-        <p class="bio">Research-track scientists at NTU and Academia Sinica, plus top-school exchange students in STEM and humanities.</p>
+      <div class="teacher">
+        <div class="flag">🇻🇳</div>
+        <div class="info">
+          <p class="country"><span data-i18n="t.vn.name"></span><span class="country-zh" data-i18n="t.vn.zh"></span></p>
+          <p class="bio" data-i18n="t.vn.bio"></p>
+        </div>
       </div>
-    </div>
-
-    <div class="teacher">
-      <div class="flag">🇰🇭</div>
-      <div class="info">
-        <p class="country">Cambodia</p>
-        <p class="country-zh">柬埔寨</p>
-        <p class="bio">Visiting heritage-conservation researchers and exchange students in cultural studies, often the only voice of their region in Taipei.</p>
+      <div class="teacher">
+        <div class="flag">🇰🇭</div>
+        <div class="info">
+          <p class="country"><span data-i18n="t.kh.name"></span><span class="country-zh" data-i18n="t.kh.zh"></span></p>
+          <p class="bio" data-i18n="t.kh.bio"></p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- Session -->
 <section class="session">
-  <p class="kicker">What a Session Looks Like</p>
-  <h2>One conversation, once a week, at home.</h2>
-  <p class="lead">No classroom, no homework. Here's what actually happens, step by step.</p>
-
-  <div class="session-steps">
-    <div class="session-step">
-      <span class="num">01</span>
-      <div class="body">
-        <h3>You arrive at a real family's home</h3>
-        <p>Vetted address. Coffee or tea on the table. Your member is expecting you — often the whole family.</p>
+  <div class="wrap">
+    <p class="kicker" data-i18n="session.kicker"></p>
+    <h2 data-i18n="session.title"></h2>
+    <p class="lead" data-i18n="session.lead"></p>
+    <div class="session-steps">
+      <div class="session-step">
+        <span class="num">01</span>
+        <div>
+          <h3 data-i18n="session.s1.title"></h3>
+          <p data-i18n="session.s1.body"></p>
+        </div>
       </div>
-    </div>
-    <div class="session-step">
-      <span class="num">02</span>
-      <div class="body">
-        <h3>You talk about whatever matters</h3>
-        <p>Last weekend's gallery opening. A book they're reading. Your hometown's cuisine. Their child's interest in space. There's no script.</p>
+      <div class="session-step">
+        <span class="num">02</span>
+        <div>
+          <h3 data-i18n="session.s2.title"></h3>
+          <p data-i18n="session.s2.body"></p>
+        </div>
       </div>
-    </div>
-    <div class="session-step">
-      <span class="num">03</span>
-      <div class="body">
-        <h3>90 minutes pass quickly</h3>
-        <p>Most sessions run 60–90 minutes. Some longer when there's a meal. Some shorter when the kids have homework.</p>
+      <div class="session-step">
+        <span class="num">03</span>
+        <div>
+          <h3 data-i18n="session.s3.title"></h3>
+          <p data-i18n="session.s3.body"></p>
+        </div>
       </div>
-    </div>
-    <div class="session-step">
-      <span class="num">04</span>
-      <div class="body">
-        <h3>You leave a little richer — both ways</h3>
-        <p>They've learned about your world. You've learned about theirs. Payment lands in your account by the end of the week.</p>
+      <div class="session-step">
+        <span class="num">04</span>
+        <div>
+          <h3 data-i18n="session.s4.title"></h3>
+          <p data-i18n="session.s4.body"></p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- Compensation -->
 <section class="compensation">
-  <p class="kicker">Teacher Compensation</p>
-  <h2>Paid like the professional you are.</h2>
-  <p class="lead">No commission cuts that don't make sense. No "exposure" payments. Real money, on time, every week.</p>
-  <p class="zh">無不合理的抽佣、無「曝光換報酬」。週週準時支付。</p>
-
-  <div class="pay-grid">
-    <div class="pay-card">
-      <p class="label">Per Session</p>
-      <p class="value">NT$ 1,000–2,000</p>
-      <p class="unit">depending on background &amp; profile</p>
+  <div class="wrap">
+    <p class="kicker" data-i18n="comp.kicker"></p>
+    <h2 data-i18n="comp.title"></h2>
+    <p class="lead" data-i18n="comp.lead"></p>
+    <div class="pay-grid">
+      <div class="pay-card">
+        <p class="plabel" data-i18n="comp.pay1.label"></p>
+        <p class="pvalue" data-i18n="comp.pay1.value"></p>
+        <p class="punit" data-i18n="comp.pay1.unit"></p>
+      </div>
+      <div class="pay-card">
+        <p class="plabel" data-i18n="comp.pay2.label"></p>
+        <p class="pvalue" data-i18n="comp.pay2.value"></p>
+        <p class="punit" data-i18n="comp.pay2.unit"></p>
+      </div>
     </div>
-    <div class="pay-card">
-      <p class="label">Frequency</p>
-      <p class="value">Weekly</p>
-      <p class="unit">predictable schedule</p>
-    </div>
+    <h3 data-i18n="comp.process_title"></h3>
+    <ol class="process-list">
+      <li data-i18n="comp.step1"></li>
+      <li data-i18n="comp.step2"></li>
+      <li data-i18n="comp.step3"></li>
+      <li data-i18n="comp.step4"></li>
+    </ol>
   </div>
-
-  <h3 style="color:var(--paper);font-family:var(--serif);font-size:18px;letter-spacing:.06em;margin-top:20px">From application to first session</h3>
-  <ol class="process-list">
-    <li>Apply via the form below — share your background, languages, location</li>
-    <li>15-min intro call with the LAIBA team (we vet you; you vet us)</li>
-    <li>Matched with a vetted member based on culture, schedule, and chemistry</li>
-    <li>First session — paid even if it's also a mutual fit check</li>
-  </ol>
 </section>
 
+<!-- Parents -->
 <section class="parents">
-  <p class="kicker">For Parents &amp; Members</p>
-  <h2>Looking to join from the other side?</h2>
-  <p class="lead">If you're a parent or an individual considering membership, here's the short version: we vet carefully, we match thoughtfully, and we don't rush growth.</p>
-  <p class="zh">如果你是想加入的家長或個人會員：我們嚴選、慢慢媒合、不急著規模化。</p>
-
-  <div class="parents-cta">
-    <h3>Request a Membership Conversation</h3>
-    <p>By introduction only at the moment. If you have a referral from a current member, mention it in the form.</p>
-    <a href="#apply" class="cta-secondary">Inquire About Membership →</a>
+  <div class="wrap">
+    <p class="kicker" data-i18n="parents.kicker"></p>
+    <h2 data-i18n="parents.title"></h2>
+    <p class="lead" data-i18n="parents.lead"></p>
+    <div class="parents-card">
+      <h3 data-i18n="parents.cta_title"></h3>
+      <p data-i18n="parents.cta_body"></p>
+      <a href="#apply" class="cta-secondary" data-i18n="parents.cta_link"></a>
+    </div>
   </div>
 </section>
 
+<!-- FAQ -->
 <section class="faq">
-  <p class="kicker">FAQ</p>
-  <h2>What people ask before applying.</h2>
-
-  <details>
-    <summary>Do I need teaching experience?</summary>
-    <p>No. We're looking for cultural depth, professional credibility, and genuine curiosity — not teaching credentials. Members are not coming for grammar drills.</p>
-    <p class="zh">不需要教學經驗。我們看重文化深度、職涯可信度、與真誠的好奇心──會員不是為了文法練習而來。</p>
-  </details>
-
-  <details>
-    <summary>How safe are home visits?</summary>
-    <p>Every member household is vetted before being matched. Addresses are verified. You'll always know the family in advance — and you can decline any match at any time, no reason needed.</p>
-    <p class="zh">每個會員家庭都經過審核、地址核實。配對前你會先認識對方家庭，任何配對你都能拒絕，無需理由。</p>
-  </details>
-
-  <details>
-    <summary>Is this compatible with my gold-card / research visa?</summary>
-    <p>Yes. The compensation structure is designed to be compatible with employment gold cards and visiting researcher visas. We can clarify edge cases on the intro call.</p>
-    <p class="zh">薪資結構與就業金卡、研究簽證相容。複雜個案可在 15 分鐘 intro call 確認。</p>
-  </details>
-
-  <details>
-    <summary>What if I'm a graduate student, not a professional?</summary>
-    <p>Top-school graduate and exchange students are very welcome. Members specifically appreciate cross-generational matches — younger teachers often pair well with younger members.</p>
-    <p class="zh">頂尖學校的研究生／交換生很歡迎。會員特別欣賞跨世代配對，年輕老師常與年輕會員契合度高。</p>
-  </details>
-
-  <details>
-    <summary>How long until I get matched?</summary>
-    <p>Typically 1–3 weeks after the intro call, depending on member availability in your culture cluster. We won't rush a bad match.</p>
-    <p class="zh">通常 15 分鐘 intro call 後 1–3 週內配對，視該文化區會員空檔而定。我們不會急著做壞的配對。</p>
-  </details>
-
-  <details>
-    <summary>Do I have to commit long-term?</summary>
-    <p>No. You can pause anytime. Most teachers stay for at least a semester — but that's a function of fit, not a contractual obligation.</p>
-    <p class="zh">不需要長期承諾。任何時候皆可暫停。多數老師會自然待上一學期以上，但那是契合度的結果、不是合約義務。</p>
-  </details>
+  <div class="wrap">
+    <p class="kicker" data-i18n="faq.kicker"></p>
+    <h2 data-i18n="faq.title"></h2>
+    <div class="faq-list">
+      <details><summary data-i18n="faq.q1"></summary><p data-i18n="faq.a1"></p></details>
+      <details><summary data-i18n="faq.q2"></summary><p data-i18n="faq.a2"></p></details>
+      <details><summary data-i18n="faq.q3"></summary><p data-i18n="faq.a3"></p></details>
+      <details><summary data-i18n="faq.q4"></summary><p data-i18n="faq.a4"></p></details>
+      <details><summary data-i18n="faq.q5"></summary><p data-i18n="faq.a5"></p></details>
+      <details><summary data-i18n="faq.q6"></summary><p data-i18n="faq.a6"></p></details>
+    </div>
+  </div>
 </section>
 
+<!-- Apply -->
 <section id="apply" class="apply">
-  <p class="kicker">Apply to Teach</p>
-  <h2>Tell us a little about yourself.</h2>
-  <p class="lead">Two minutes to fill out. We'll get back to you within 5 working days to schedule your intro call.</p>
+  <div class="wrap">
+    <p class="kicker" data-i18n="apply.kicker"></p>
+    <h2 data-i18n="apply.title"></h2>
+    <p class="lead" data-i18n="apply.lead"></p>
 
-  <form onsubmit="event.preventDefault();this.querySelector('.submit').disabled=true;this.querySelector('.submit').textContent='Submitted · Thank you';">
-    <label>Name · 姓名</label>
-    <input type="text" placeholder="Your full name" required>
+    <form id="applyForm">
+      <label data-i18n="apply.f_name"></label>
+      <input type="text" required data-i18n-placeholder="apply.p_name">
 
-    <label>Email · 電子信箱</label>
-    <input type="email" placeholder="you@example.com" required>
+      <label data-i18n="apply.f_email"></label>
+      <input type="email" required data-i18n-placeholder="apply.p_email">
 
-    <label>Country of origin · 來自</label>
-    <input type="text" placeholder="e.g. United States, France, Vietnam">
+      <label data-i18n="apply.f_country"></label>
+      <input type="text" data-i18n-placeholder="apply.p_country">
 
-    <label>Current status in Taiwan · 在臺身份</label>
-    <select>
-      <option>Gold Card holder · 就業金卡</option>
-      <option>Visiting researcher · 來臺研究員</option>
-      <option>Graduate / Exchange student · 研究生／交換生</option>
-      <option>Top-school undergraduate · 重點學校大學生</option>
-      <option>Other (please specify) · 其他</option>
-    </select>
+      <label data-i18n="apply.f_status"></label>
+      <select>
+        <option data-i18n="apply.s1"></option>
+        <option data-i18n="apply.s2"></option>
+        <option data-i18n="apply.s3"></option>
+        <option data-i18n="apply.s4"></option>
+        <option data-i18n="apply.s5"></option>
+      </select>
 
-    <label>Languages you'd teach · 你能教的語言／文化</label>
-    <input type="text" placeholder="e.g. English (native), French (fluent)">
+      <label data-i18n="apply.f_lang"></label>
+      <input type="text" data-i18n-placeholder="apply.p_lang">
 
-    <label>What you'd love to talk about · 你最樂意聊的主題</label>
-    <textarea placeholder="A few sentences. Your work, your obsessions, what you can offer."></textarea>
+      <label data-i18n="apply.f_topic"></label>
+      <textarea data-i18n-placeholder="apply.p_topic"></textarea>
 
-    <button type="submit" class="submit">Apply</button>
-  </form>
+      <button type="submit" class="submit" data-i18n="apply.submit"></button>
+    </form>
+  </div>
 </section>
 
-</div>
+</main>
 
 <footer>
-  <p class="brand-foot">LAIBA</p>
+  <p class="brand-foot"><span class="spark">✦</span>LAIBA</p>
   <p class="brand-foot-zh">來吧文化</p>
-  <p class="tagline">A curated weekly cultural exchange network · Taipei</p>
-  <p>By introduction · Selective · Two-sided vetted</p>
-  <p style="margin-top:18px"><a href="mailto:hello@laiba.culture">hello@laiba.culture</a></p>
-  <p class="legal">© 2026 LAIBA · 來吧文化 · Prototype · Internal preview</p>
+  <p class="tagline" data-i18n="footer.tagline"></p>
+  <p class="footer-meta" data-i18n="footer.meta"></p>
+  <p><a href="mailto:hello@laiba.culture">hello@laiba.culture</a></p>
+  <p class="legal" data-i18n="footer.legal"></p>
 </footer>
+
+<script>
+(function(){
+  var T = {
+    en: {
+      'hero.kicker': '✦ By invitation · Taipei · Est. 2026',
+      'hero.title_pre': 'A weekly window to ',
+      'hero.title_h': 'the world',
+      'hero.title_post': ' — at your kitchen table.',
+      'hero.lead': "We connect Taiwan's most curious families with international gold-card holders, researchers, and top-school students — for real conversation, not tutoring.",
+      'hero.cta_primary': 'Apply to Teach',
+      'hero.cta_secondary': 'See Who Joins ↓',
+      'hero.meta_1': '⏱ Weekly · 1-on-1',
+      'hero.meta_2': '🏠 In-home',
+      'hero.meta_3': '🌍 Culture-first',
+
+      'members.kicker': 'Meet Our Members',
+      'members.title': "Who you'll meet.",
+      'members.lead': "A glimpse of the families and individuals who join LAIBA — the people you'd be teaching, learning with, and building a real friendship with.",
+      'members.lead_in': "I learned about LAIBA through a Rotary Club referral. My child has used it a few times — it's been wonderful. Young platform, but the team is deeply attentive.",
+      'members.disclaimer': '— Representative member profiles, drawn from our community —',
+
+      'arch.1.role': 'Family Office Manager',
+      'arch.1.quote': "I manage my employer's assets across several countries. I personally need a deeper understanding of foreign cultures — and through LAIBA, I've learned far more than I expected.",
+      'arch.2.role': 'Finance Firm Owner',
+      'arch.2.quote': "Taiwan's markets have done well recently, and we have capital flowing offshore. Through simple conversation, I see different cultures and the values they reveal. Inspiring — even from casual chats.",
+      'arch.3.role': 'Artist',
+      'arch.3.quote': "Whether it's foreigners visiting Taiwan for an exhibition, or me showing work in Paris — having a tutor share their country's customs in advance lets me approach new cultures with ease. That cultural shock fuels my creative work.",
+      'arch.4.role': 'Entrepreneur',
+      'arch.4.quote': "Life is busy — finally found a platform that gives my kids a better worldview. Their tutor is an exchange student from Southeast Asia researching space science. My daughter, who'd never been into STEM, suddenly took initiative.",
+      'arch.5.role': 'Tech Executive',
+      'arch.5.quote': "AI mania has been very good to Taiwan's tech sector — but day in, day out, I'm with machines. Through LAIBA I've met wonderful teachers. They've shown me more of the world.",
+      'arch.6.role': 'Stock Market Professional',
+      'arch.6.quote': "I spend my days submerged in stocks and data. Through these conversations I see a different world — while sharpening my language. Thank you, teachers.",
+
+      'why.kicker': 'Why This Exists',
+      'why.title': "It isn't tutoring. It's a weekly conversation between two worlds.",
+      'why.lead': "LAIBA exists because Taiwan's most curious people want more than language drills — and the international community here has stories that don't fit on a CV.",
+      'why.p1.title': 'Conversation, not curriculum',
+      'why.p1.body': 'No textbooks. No grading. Just two interesting humans, once a week, in a Taiwanese home — talking about life, work, culture, ideas.',
+      'why.p2.title': 'Selective on both sides',
+      'why.p2.body': 'We vet members the way we vet teachers. Time spent here is time well spent — for both sides.',
+      'why.p3.title': 'From language to art to architecture',
+      'why.p3.body': 'Language is our starting point. Future cohorts will expand into art, architecture, and other cultural disciplines.',
+
+      'vet.kicker': 'Two-Sided Vetting',
+      'vet.title': 'Why both sides are worth your time.',
+      'vet.lead': "A network is only as good as who's in it. Here's how we keep the bar high — for teachers and members alike.",
+      'vet.teacher.label': 'Teacher Profile',
+      'vet.teacher.title': 'Who can teach',
+      'vet.teacher.l1_strong': "Gold Card holders: ",
+      'vet.teacher.l1_text': "Taiwan's employment-based foreign professionals",
+      'vet.teacher.l2': 'Visiting researchers and academics in Taiwan',
+      'vet.teacher.l3': 'Exchange or graduate students from top international universities',
+      'vet.teacher.l4': 'Mother-tongue speakers with verified cultural depth',
+      'vet.teacher.reject': 'Casual visitors and unverified backgrounds — not accepted.',
+      'vet.member.label': 'Member Vetting',
+      'vet.member.title': 'Who can join',
+      'vet.member.l1_strong': "Under 18: ",
+      'vet.member.l1_text': "we vet the parents — career, profession, household",
+      'vet.member.l2_strong': "18 and over: ",
+      'vet.member.l2_text': "we vet the individual — career trajectory, professional record",
+      'vet.member.l3': 'Open mind, willingness to engage across cultures',
+      'vet.member.l4': 'Active learning attitude — show up, ask, listen',
+
+      'teachers.kicker': 'Meet Our Teachers',
+      'teachers.title': 'Voices from six worlds — and counting.',
+      'teachers.lead': 'A snapshot of the cultures already represented in our teacher pool. Each teacher brings a homeland, a profession, and a worldview.',
+      't.us.name': 'United States', 't.us.zh': '美國',
+      't.us.bio': 'Gold-card AI researchers, MBA exchange students from Ivy League, and tenured visiting professors from West Coast tech universities.',
+      't.fr.name': 'France', 't.fr.zh': '法國',
+      't.fr.bio': 'Sorbonne-trained researchers in literature and philosophy, plus art and design students currently in Taiwan on cultural exchange programs.',
+      't.de.name': 'Germany', 't.de.zh': '德國',
+      't.de.bio': 'Engineering and physics researchers at Academia Sinica; classical-music conservatory exchange students at NTNU.',
+      't.jp.name': 'Japan', 't.jp.zh': '日本',
+      't.jp.bio': "Visiting curators from Tokyo's museum circuit, gold-card holders in design, and graduate students from Waseda and Keio.",
+      't.vn.name': 'Vietnam', 't.vn.zh': '越南',
+      't.vn.bio': 'Research-track scientists at NTU and Academia Sinica, plus top-school exchange students in STEM and humanities.',
+      't.kh.name': 'Cambodia', 't.kh.zh': '柬埔寨',
+      't.kh.bio': 'Visiting heritage-conservation researchers and exchange students in cultural studies — often the only voice of their region in Taipei.',
+
+      'session.kicker': 'What a Session Looks Like',
+      'session.title': 'One conversation. Once a week. At home.',
+      'session.lead': "No classroom, no homework. Here's what actually happens, step by step.",
+      'session.s1.title': "🏠 You arrive at a real family's home",
+      'session.s1.body': 'Vetted address. Coffee or tea on the table. Your member is expecting you — often the whole family.',
+      'session.s2.title': '💬 You talk about whatever matters',
+      'session.s2.body': "Last weekend's gallery opening. A book they're reading. Your hometown's cuisine. Their child's interest in space. There's no script.",
+      'session.s3.title': '⏳ 90 minutes pass quickly',
+      'session.s3.body': "Most sessions run 60–90 minutes. Some longer when there's a meal. Some shorter when the kids have homework.",
+      'session.s4.title': '💛 You leave a little richer — both ways',
+      'session.s4.body': "They've learned about your world. You've learned about theirs. Payment lands in your account by the end of the week.",
+
+      'comp.kicker': 'Teacher Compensation',
+      'comp.title': 'Paid like the professional you are.',
+      'comp.lead': 'No commission cuts that don\'t make sense. No "exposure" payments. Real money, on time, every week.',
+      'comp.pay1.label': 'Per Session',
+      'comp.pay1.value': 'NT$ 1,000–2,000',
+      'comp.pay1.unit': 'based on background & profile',
+      'comp.pay2.label': 'Frequency',
+      'comp.pay2.value': 'Weekly',
+      'comp.pay2.unit': 'predictable schedule',
+      'comp.process_title': 'From application to first session',
+      'comp.step1': 'Apply via the form below — share your background, languages, location.',
+      'comp.step2': '15-min intro call with the LAIBA team (we vet you; you vet us).',
+      'comp.step3': 'Matched with a vetted member based on culture, schedule, and chemistry.',
+      'comp.step4': "First session — paid even if it's also a mutual fit check.",
+
+      'parents.kicker': 'For Parents & Members',
+      'parents.title': 'Looking to join from the other side?',
+      'parents.lead': "If you're a parent or an individual considering membership, here's the short version: we vet carefully, match thoughtfully, and don't rush growth.",
+      'parents.cta_title': 'Request a Membership Conversation',
+      'parents.cta_body': 'By introduction only at the moment. If you have a referral from a current member, mention it in the form.',
+      'parents.cta_link': 'Inquire About Membership →',
+
+      'faq.kicker': 'FAQ',
+      'faq.title': 'What people ask before applying.',
+      'faq.q1': 'Do I need teaching experience?',
+      'faq.a1': "No. We're looking for cultural depth, professional credibility, and genuine curiosity — not teaching credentials. Members are not coming for grammar drills.",
+      'faq.q2': 'How safe are home visits?',
+      'faq.a2': "Every member household is vetted before being matched. Addresses are verified. You'll always know the family in advance — and you can decline any match at any time, no reason needed.",
+      'faq.q3': 'Is this compatible with my gold-card / research visa?',
+      'faq.a3': 'Yes. The compensation structure is designed to be compatible with employment gold cards and visiting researcher visas. We can clarify edge cases on the intro call.',
+      'faq.q4': "What if I'm a graduate student, not a professional?",
+      'faq.a4': 'Top-school graduate and exchange students are very welcome. Members specifically appreciate cross-generational matches — younger teachers often pair well with younger members.',
+      'faq.q5': 'How long until I get matched?',
+      'faq.a5': "Typically 1–3 weeks after the intro call, depending on member availability in your culture cluster. We won't rush a bad match.",
+      'faq.q6': 'Do I have to commit long-term?',
+      'faq.a6': "No. You can pause anytime. Most teachers stay for at least a semester — but that's a function of fit, not a contractual obligation.",
+
+      'apply.kicker': 'Apply to Teach',
+      'apply.title': 'Tell us a little about yourself.',
+      'apply.lead': "Two minutes to fill out. We'll get back to you within 5 working days to schedule your intro call.",
+      'apply.f_name': 'Name',
+      'apply.p_name': 'Your full name',
+      'apply.f_email': 'Email',
+      'apply.p_email': 'you@example.com',
+      'apply.f_country': 'Country of origin',
+      'apply.p_country': 'e.g. United States, France, Vietnam',
+      'apply.f_status': 'Current status in Taiwan',
+      'apply.s1': 'Gold Card holder',
+      'apply.s2': 'Visiting researcher',
+      'apply.s3': 'Graduate / Exchange student',
+      'apply.s4': 'Top-school undergraduate',
+      'apply.s5': 'Other (please specify)',
+      'apply.f_lang': "Languages you'd teach",
+      'apply.p_lang': 'e.g. English (native), French (fluent)',
+      'apply.f_topic': "What you'd love to talk about",
+      'apply.p_topic': 'A few sentences. Your work, your obsessions, what you can offer.',
+      'apply.submit': 'Submit Application',
+      'apply.submitted': '✓ Submitted · Thank you',
+
+      'footer.tagline': 'A curated weekly cultural exchange network · Taipei',
+      'footer.meta': 'By introduction · Selective · Two-sided vetted',
+      'footer.legal': '© 2026 LAIBA · 來吧文化 · Prototype · Internal preview'
+    },
+
+    zh: {
+      'hero.kicker': '✦ 邀請制 · 台北 · 2026 創立',
+      'hero.title_pre': '每週一次的',
+      'hero.title_h': '世界之窗',
+      'hero.title_post': '──就在你家的廚房餐桌邊。',
+      'hero.lead': '我們為臺灣最求知若渴的家庭，連結持有就業金卡的國際專業人士、研究員與頂尖大學生──為了真正的對話，而不是補習。',
+      'hero.cta_primary': '申請成為老師',
+      'hero.cta_secondary': '看看你會遇見誰 ↓',
+      'hero.meta_1': '⏱ 每週一次 · 一對一',
+      'hero.meta_2': '🏠 到府訪問',
+      'hero.meta_3': '🌍 文化優先',
+
+      'members.kicker': '會員側寫',
+      'members.title': '你會遇見什麼樣的人。',
+      'members.lead': '一窺加入 LAIBA 的家庭與個人──就是你會教學、學習、與建立真實友誼的對象。',
+      'members.lead_in': '我經過扶輪社社員推薦認識了這個平臺。小孩用了幾次覺得非常好──雖然創立不久，但團隊很用心。',
+      'members.disclaimer': '— 代表性會員人設，取材自社群 —',
+
+      'arch.1.role': '家族辦公室主管',
+      'arch.1.quote': '我自己管理老闆幾個不同國家的資產。其實我自己本身很需要對不同國家的文化做更深入的認識，很幸運遇到這個平臺，也學會蠻多東西。',
+      'arch.2.role': '金融公司老闆',
+      'arch.2.quote': '最近臺灣的金融市場表現非常好，所以我們有一些外溢的資金需要投向海外。透過很簡單的生活交流，讓我瞭解不同國家的不同文化，以及他們在這些文化中展現出來的價值；這對我非常有啟發，哪怕只是生活的閒聊。',
+      'arch.3.role': '藝術家',
+      'arch.3.quote': '不管是來臺灣看展覽的外國人，或是我到法國參展，都因為有這樣的小老師提前為我分享他們國家的風土人情，讓我可以很自在、放鬆地去接觸不同的文化。因為文化的衝擊，也讓我的創作更富有靈感與啟發。',
+      'arch.4.role': '企業主',
+      'arch.4.quote': '生活很忙碌，終於找到了可以給小孩更好世界觀的平臺。這次的老師是來臺灣研究太空科學的東南亞交換生。原本不喜歡科學的女兒，一下子變得會主動學習起來，非常感謝這個平臺。',
+      'arch.5.role': '科技新貴',
+      'arch.5.quote': '最近 AI 的瘋狂熱潮，讓臺灣所有的電子業賺得盆滿缽滿。但每天只能與設備、機器為伍，還好在這個平臺遇到了很好的老師。透過語言和文化的交流，他們讓我看到了世界更多的面貌。',
+      'arch.6.role': '股票新貴',
+      'arch.6.quote': '每天泡在股票跟各種數據裡面，我透過跟老師的互動看到不一樣的世界，同時也提升了我語言的能力，謝謝老師。',
+
+      'why.kicker': '為什麼我們存在',
+      'why.title': '這不是補習。是兩個世界每週一次的真實對話。',
+      'why.lead': 'LAIBA 存在的原因是：臺灣最求知若渴的人想要的不只是文法練習──而在臺的國際社群有著無法寫進履歷的故事。',
+      'why.p1.title': '對話，不是課綱',
+      'why.p1.body': '沒有課本、沒有評分。就是兩個有趣的人類，每週一次，在臺灣家庭裡──聊生活、工作、文化、想法。',
+      'why.p2.title': '兩邊都嚴選',
+      'why.p2.body': '我們審核會員，就像審核老師一樣。這裡花的時間，對雙方都是值得的時間。',
+      'why.p3.title': '從語言到藝術，到建築',
+      'why.p3.body': '語言只是起點。未來將擴展至藝術、建築與其他文化領域。',
+
+      'vet.kicker': '雙邊嚴選機制',
+      'vet.title': '為什麼雙邊都值得你花時間。',
+      'vet.lead': '一個網絡的價值取決於裡面有誰。這是我們維持高標準的方法──老師與會員一視同仁。',
+      'vet.teacher.label': '老師資格',
+      'vet.teacher.title': '誰能教學',
+      'vet.teacher.l1_strong': '就業金卡：',
+      'vet.teacher.l1_text': '臺灣就業金卡持有的外籍專業人士',
+      'vet.teacher.l2': '來臺的訪問研究員與學者',
+      'vet.teacher.l3': '頂尖國際大學的交換生與研究生',
+      'vet.teacher.l4': '具備可驗證文化深度的母語者',
+      'vet.teacher.reject': '一般觀光客與無驗證背景者──不予錄取。',
+      'vet.member.label': '會員審核',
+      'vet.member.title': '誰能加入',
+      'vet.member.l1_strong': '未滿 18 歲：',
+      'vet.member.l1_text': '審核家長──職涯、職業、家庭背景',
+      'vet.member.l2_strong': '18 歲以上：',
+      'vet.member.l2_text': '審核本人──職涯軌跡、職業紀錄',
+      'vet.member.l3': '開放的心、願意跨文化交流',
+      'vet.member.l4': '積極的學習態度──出席、提問、傾聽',
+
+      'teachers.kicker': '老師來自哪裡',
+      'teachers.title': '六個世界的聲音──並持續擴展中。',
+      'teachers.lead': '我們現有老師涵蓋的文化光譜。每位老師都帶來一個家鄉、一份職業、一種世界觀。',
+      't.us.name': 'United States', 't.us.zh': '美國',
+      't.us.bio': '持金卡的 AI 研究員、來自常春藤的 MBA 交換生、美西科技類大學的訪問教授。',
+      't.fr.name': 'France', 't.fr.zh': '法國',
+      't.fr.bio': '索邦大學受訓的文學與哲學研究員，以及正在臺灣參與文化交流計畫的藝術與設計學生。',
+      't.de.name': 'Germany', 't.de.zh': '德國',
+      't.de.bio': '中央研究院的工程與物理研究員；師大的古典音樂院交換生。',
+      't.jp.name': 'Japan', 't.jp.zh': '日本',
+      't.jp.bio': '來自東京美術館圈的訪問策展人、設計領域的金卡持有人，以及早稻田與慶應的研究生。',
+      't.vn.name': 'Vietnam', 't.vn.zh': '越南',
+      't.vn.bio': '臺大與中研院的研究型科學家，以及來自頂尖學校的 STEM 與人文交換生。',
+      't.kh.name': 'Cambodia', 't.kh.zh': '柬埔寨',
+      't.kh.bio': '文化資產保存的訪問研究員與文化研究交換生──常是該區域在臺北唯一的聲音。',
+
+      'session.kicker': '一次課的樣貌',
+      'session.title': '一場對話，每週一次，在家。',
+      'session.lead': '沒有教室，沒有作業。以下是真實發生的過程。',
+      'session.s1.title': '🏠 你抵達真實的家庭',
+      'session.s1.body': '經過審核的地址。桌上備好咖啡或茶。會員等著你──通常是全家一起。',
+      'session.s2.title': '💬 你們聊任何重要的事',
+      'session.s2.body': '上週末的畫廊開幕。他們正在讀的書。你家鄉的料理。他孩子對太空的興趣。沒有腳本。',
+      'session.s3.title': '⏳ 90 分鐘很快過去',
+      'session.s3.body': '多數課程 60–90 分鐘。有用餐時更長；孩子有作業時更短。',
+      'session.s4.title': '💛 你帶著更豐富的自己離開──雙向豐富',
+      'session.s4.body': '他們認識了你的世界。你也認識了他們的。報酬週末前匯入你的帳戶。',
+
+      'comp.kicker': '老師報酬',
+      'comp.title': '配得上你這個專業的酬勞。',
+      'comp.lead': '沒有不合理的抽佣、沒有「曝光換報酬」。真正的現金，週週準時。',
+      'comp.pay1.label': '每堂',
+      'comp.pay1.value': 'NT$ 1,000–2,000',
+      'comp.pay1.unit': '依背景與條件',
+      'comp.pay2.label': '頻率',
+      'comp.pay2.value': '每週',
+      'comp.pay2.unit': '可預期的排程',
+      'comp.process_title': '從申請到第一堂課',
+      'comp.step1': '填寫下方表單──分享你的背景、語言、位置。',
+      'comp.step2': '與 LAIBA 團隊 15 分鐘 intro 電話（我們審核你，你也審核我們）。',
+      'comp.step3': '依文化、時間、契合度，配對到審核過的會員。',
+      'comp.step4': '第一堂課──即使是相互試合，也照常付費。',
+
+      'parents.kicker': '家長與會員',
+      'parents.title': '想從另一邊加入嗎？',
+      'parents.lead': '如果你是想加入的家長或個人會員，簡單來說：我們嚴選、慢慢媒合、不急著規模化。',
+      'parents.cta_title': '預約一次會員諮詢',
+      'parents.cta_body': '目前僅接受推薦制。如果你有現有會員的推薦，請在表單中註明。',
+      'parents.cta_link': '諮詢會員資格 →',
+
+      'faq.kicker': '常見問題',
+      'faq.title': '申請前大家會問的事。',
+      'faq.q1': '我需要有教學經驗嗎？',
+      'faq.a1': '不需要。我們看重文化深度、職涯可信度、與真誠的好奇心──不是教學證照。會員不是為了文法練習而來。',
+      'faq.q2': '到府訪問安全嗎？',
+      'faq.a2': '每個會員家庭都經過審核、地址核實。配對前你會先認識對方家庭，任何配對你都能拒絕，無需理由。',
+      'faq.q3': '這跟我的金卡／研究簽證相容嗎？',
+      'faq.a3': '相容。薪資結構設計與就業金卡、研究員簽證相容。複雜個案可在 15 分鐘 intro 電話中釐清。',
+      'faq.q4': '如果我是研究生而不是專業人士？',
+      'faq.a4': '頂尖學校的研究生與交換生非常歡迎。會員特別欣賞跨世代配對──年輕老師常與年輕會員契合度高。',
+      'faq.q5': '多久能配對到？',
+      'faq.a5': '通常 intro 電話後 1–3 週內，視該文化區的會員空檔而定。我們不會勉強做壞的配對。',
+      'faq.q6': '需要長期承諾嗎？',
+      'faq.a6': '不需要。隨時可暫停。多數老師會待至少一學期，但那是契合度的結果，不是合約義務。',
+
+      'apply.kicker': '申請成為老師',
+      'apply.title': '介紹一下你自己。',
+      'apply.lead': '兩分鐘填完。我們會在五個工作天內回覆並安排 intro 電話。',
+      'apply.f_name': '姓名',
+      'apply.p_name': '你的全名',
+      'apply.f_email': '電子信箱',
+      'apply.p_email': 'you@example.com',
+      'apply.f_country': '來自',
+      'apply.p_country': '例如：美國、法國、越南',
+      'apply.f_status': '目前在臺身份',
+      'apply.s1': '就業金卡持有人',
+      'apply.s2': '來臺研究員',
+      'apply.s3': '研究生／交換生',
+      'apply.s4': '頂尖大學在學生',
+      'apply.s5': '其他（請註明）',
+      'apply.f_lang': '你能教的語言／文化',
+      'apply.p_lang': '例如：英文（母語）、法文（流利）',
+      'apply.f_topic': '你最樂意聊的主題',
+      'apply.p_topic': '幾句話：你的工作、你的熱情、你能分享什麼。',
+      'apply.submit': '送出申請',
+      'apply.submitted': '✓ 已送出 · 感謝你',
+
+      'footer.tagline': '精選每週文化交流網絡 · 台北',
+      'footer.meta': '推薦制 · 嚴選 · 雙邊審核',
+      'footer.legal': '© 2026 LAIBA · 來吧文化 · Prototype · Internal preview'
+    }
+  };
+
+  var LANGS = [
+    {code:'en', label:'English', flag:'🇺🇸', available:true},
+    {code:'zh', label:'繁體中文', flag:'🇹🇼', available:true},
+    {code:'fr', label:'Français', flag:'🇫🇷', available:false},
+    {code:'de', label:'Deutsch', flag:'🇩🇪', available:false},
+    {code:'ja', label:'日本語', flag:'🇯🇵', available:false},
+    {code:'vi', label:'Tiếng Việt', flag:'🇻🇳', available:false},
+    {code:'es', label:'Español', flag:'🇪🇸', available:false}
+  ];
+
+  function detectInitialLang(){
+    var saved = localStorage.getItem('laiba.lang');
+    if (saved && T[saved]) return saved;
+    var nav = (navigator.language || '').toLowerCase();
+    if (nav.indexOf('zh') === 0) return 'zh';
+    return 'en';
+  }
+
+  function applyLang(code){
+    if (!T[code]) code = 'en';
+    document.documentElement.lang = code === 'zh' ? 'zh-Hant' : code;
+
+    var els = document.querySelectorAll('[data-i18n]');
+    for (var i = 0; i < els.length; i++) {
+      var key = els[i].getAttribute('data-i18n');
+      var val = T[code][key];
+      if (val !== undefined) els[i].textContent = val;
+    }
+    var phs = document.querySelectorAll('[data-i18n-placeholder]');
+    for (var j = 0; j < phs.length; j++) {
+      var pkey = phs[j].getAttribute('data-i18n-placeholder');
+      var pval = T[code][pkey];
+      if (pval !== undefined) phs[j].setAttribute('placeholder', pval);
+    }
+
+    var lang = LANGS[0];
+    for (var k = 0; k < LANGS.length; k++) if (LANGS[k].code === code) lang = LANGS[k];
+    document.getElementById('langFlag').textContent = lang.flag;
+    document.getElementById('langCode').textContent = code.toUpperCase();
+
+    var menuBtns = document.querySelectorAll('#langMenu .row');
+    for (var m = 0; m < menuBtns.length; m++) {
+      menuBtns[m].setAttribute('data-active', menuBtns[m].dataset.code === code ? 'true' : 'false');
+    }
+
+    localStorage.setItem('laiba.lang', code);
+  }
+
+  function renderLangMenu(){
+    var menu = document.getElementById('langMenu');
+    while (menu.firstChild) menu.removeChild(menu.firstChild);
+
+    LANGS.forEach(function(l){
+      var btn = document.createElement('button');
+      btn.className = 'row';
+      btn.dataset.code = l.code;
+      if (!l.available) btn.disabled = true;
+
+      var lab = document.createElement('span');
+      lab.className = 'lab';
+      var flag = document.createElement('span');
+      flag.className = 'flag';
+      flag.textContent = l.flag;
+      var labelText = document.createElement('span');
+      labelText.textContent = l.label;
+      lab.appendChild(flag);
+      lab.appendChild(labelText);
+      btn.appendChild(lab);
+
+      if (!l.available) {
+        var soon = document.createElement('span');
+        soon.className = 'soon';
+        soon.textContent = 'soon';
+        btn.appendChild(soon);
+      }
+
+      if (l.available) {
+        btn.addEventListener('click', function(){
+          applyLang(l.code);
+          menu.classList.remove('open');
+          document.getElementById('langBtn').setAttribute('aria-expanded','false');
+        });
+      }
+
+      menu.appendChild(btn);
+    });
+  }
+
+  document.getElementById('langBtn').addEventListener('click', function(e){
+    e.stopPropagation();
+    var menu = document.getElementById('langMenu');
+    var btn = document.getElementById('langBtn');
+    var open = menu.classList.toggle('open');
+    btn.setAttribute('aria-expanded', String(open));
+  });
+  document.addEventListener('click', function(e){
+    var menu = document.getElementById('langMenu');
+    var btn = document.getElementById('langBtn');
+    if (!menu.contains(e.target) && e.target !== btn) {
+      menu.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+    }
+  });
+
+  document.getElementById('applyForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var code = document.documentElement.lang.indexOf('zh') === 0 ? 'zh' : 'en';
+    var btn = e.target.querySelector('.submit');
+    btn.disabled = true;
+    btn.textContent = T[code]['apply.submitted'];
+  });
+
+  renderLangMenu();
+  applyLang(detectInitialLang());
+})();
+</script>
 
 </body>
 </html>
